@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 
 import Header from '../../components/Header/Header'
-import DataTable from '../../components/DataTable/DataTable';
+import Tabela from '../../components/Tabela/Tabela';
 import apiService from '../../utils/ApiService';
 import Popup from '../../utils/Popup';
 
@@ -26,12 +26,13 @@ class Livros extends Component {
   }
 
   render() {
+    const campos = [{ titulo: 'Livros', dado: 'livro' }]
     return (
       <Fragment>
         <Header />
         <div className="container mb-10">
           <h1>Livros</h1>
-          <DataTable dataRow={this.state.livros} columns={[{ name: 'livro', display: 'Livro' }]} />
+          <Tabela dados={this.state.livros} campos={campos} />
         </div>
       </Fragment >
     );

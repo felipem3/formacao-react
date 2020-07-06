@@ -46,7 +46,13 @@ class Home extends Component {
       .catch(err => Popup.exibeMensagem("error", `Erro na comunicação com api ${err}`))
   }
 
-  escutadorDeSubmit = autor => {
+  escutadorDeSubmit = dados => {
+    const autor = {
+      nome: dados.nome,
+      livro: dados.livro,
+      preco: dados.preco
+    }
+
     ApiService.CriaAutor(JSON.stringify(autor))
       .then(res => {
         if (res.message === "success") {
@@ -58,13 +64,19 @@ class Home extends Component {
   }
 
   render() {
+    const campos = [
+      { titulo: 'Autores', dado: 'nome' },
+      { titulo: 'Livros', dado: 'livro' },
+      { titulo: 'Preços', dado: 'preco' }
+    ]
+    console.log(this.state.autores)
     return (
       <Fragment>
         <Header />
         <div className="container mb-10">
           <h1>Casa do código</h1>
-          <Tabela autores={this.state.autores} removeAutor={this.removeAutor} />
           <Formulario escutadorDeSubmit={this.escutadorDeSubmit} />
+          <Tabela campos={campos} dados={this.state.autores} removeDados={this.removeAutor} />
         </div>
       </Fragment>
     );

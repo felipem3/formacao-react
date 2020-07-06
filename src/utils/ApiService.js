@@ -1,28 +1,30 @@
 const url = "http://localhost:8000/api/"
 
+const consomeApi = (param = '', method = 'GET', body) => {
+  return fetch(`${url}autor/${param}`, {
+    method,
+    headers: { 'content-type': 'application/json' },
+    body
+  })
+    .then(res => apiService.TrataErros(res))
+    .then(res => res.json())
+}
+
 const apiService = {
   ListaAutores: () => {
-    return fetch(`${url}autor`).then(res => apiService.TrataErros(res)).then(res => res.json())
+    return consomeApi()
   },
   CriaAutor: autor => {
-    return fetch(`${url}autor`, { method: "POST", headers: { 'content-type': 'application/json' }, body: autor })
-      .then(res => apiService.TrataErros(res))
-      .then(res => res.json())
+    return consomeApi('', 'POST', autor)
   },
   ListaNomes: () => {
-    return fetch(`${url}autor/nome`)
-      .then(res => apiService.TrataErros(res))
-      .then(res => res.json())
+    return consomeApi("nome")
   },
   ListaLivros: () => {
-    return fetch(`${url}autor/livro`)
-      .then(res => apiService.TrataErros(res))
-      .then(res => res.json())
+    return consomeApi("livro")
   },
   RemoveAutor: (id) => {
-    return fetch(`${url}autor/${id}`, { method: "DELETE", headers: { 'content-type': 'application/json' } })
-      .then(res => apiService.TrataErros(res))
-      .then(res => res.json())
+    return consomeApi(id, 'DELETE')
   },
   TrataErros: res => {
     if (!res.ok) {

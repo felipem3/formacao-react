@@ -1,3 +1,7 @@
+Projeto desenvolvido com base na formação reactJS da alura
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
